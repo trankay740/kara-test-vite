@@ -1,7 +1,5 @@
 import { ZaloIcon, MessengerIcon, TikTokIcon } from '@/components/icons/BrandIcons';
-
-const FOOTER_BG =
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/f_webp,q_auto,w_1600/v1787719462/test_3.jpg';
+import { footerBgUrl } from '@/lib/imageAssets';
 
 const MAPS_LINK =
   'https://www.google.com/maps/place/Karaoke+9999+(nh%C3%A0+v%C3%A0ng+anh)/@10.8943207,106.6993868,17z/data=!3m1!4b1!4m6!3m5!1s0x3174d76e736730cf:0xa79b331ba2935dd0!8m2!3d10.8943154!4d106.7019617!16s%2Fg%2F11jmvxl1fh?entry=ttu&g_ep=EgoyMDI2MDgyMy4wIKXMDSoASAFQAw%3D%3D';
@@ -17,7 +15,7 @@ export default function Footer() {
     <footer
       className="relative w-full overflow-hidden"
       style={{
-        backgroundImage: `url(${FOOTER_BG})`,
+        backgroundImage: `url(${footerBgUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center 35%',
         backgroundRepeat: 'no-repeat',

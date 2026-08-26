@@ -129,7 +129,7 @@ export default function RoomsSection() {
 
       {lightbox && (
         <RoomLightbox
-          images={lightbox.room.images}
+          room={lightbox.room}
           index={lightbox.index}
           onClose={() => setLightbox(null)}
           onNavigate={(index) =>

@@ -1,15 +1,16 @@
 import { useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { cld } from '@/data/roomsData';
+import type { Room } from '@/data/roomsData';
 
 interface RoomLightboxProps {
-  images: string[];
+  room: Room;
   index: number;
   onClose: () => void;
   onNavigate: (index: number) => void;
 }
 
-export default function RoomLightbox({ images, index, onClose, onNavigate }: RoomLightboxProps) {
+export default function RoomLightbox({ room, index, onClose, onNavigate }: RoomLightboxProps) {
+  const images = room.images;
   const goPrev = useCallback(() => {
     onNavigate((index - 1 + images.length) % images.length);
   }, [index, images.length, onNavigate]);
@@ -68,7 +69,7 @@ export default function RoomLightbox({ images, index, onClose, onNavigate }: Roo
       )}
 
       <img
-        src={cld(images[index], 'f_webp,q_auto,w_1600')}
+        src={images[index].src}
         alt=""
         className="max-h-[85vh] max-w-[90vw] object-contain"
         onClick={(e) => e.stopPropagation()}

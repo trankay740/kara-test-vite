@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { Room } from '@/data/roomsData';
-import { cld } from '@/data/roomsData';
 
 interface RoomBlockProps {
   room: Room;
@@ -24,6 +23,7 @@ export default function RoomBlock({ room, reverse, onOpenLightbox }: RoomBlockPr
   const [activeIndex, setActiveIndex] = useState(0);
   const glowHex = GLOW_COLOR[room.glow];
   const glowClass = GLOW_CLASS[room.glow];
+  const currentImage = room.images[activeIndex];
 
   return (
     <div
@@ -120,8 +120,8 @@ export default function RoomBlock({ room, reverse, onOpenLightbox }: RoomBlockPr
           style={{ aspectRatio: '4 / 3' }}
         >
           <img
-            src={cld(room.images[activeIndex], 'f_webp,q_auto,w_800')}
-            srcSet={`${cld(room.images[activeIndex], 'f_webp,q_auto,w_400')} 400w, ${cld(room.images[activeIndex], 'f_webp,q_auto,w_640')} 640w, ${cld(room.images[activeIndex], 'f_webp,q_auto,w_800')} 800w, ${cld(room.images[activeIndex], 'f_webp,q_auto,w_1200')} 1200w`}
+            src={currentImage.src}
+            srcSet={currentImage.srcset}
             sizes="(max-width: 767px) 92vw, (max-width: 1023px) 48vw, 640px"
             alt={`${room.name} - ảnh ${activeIndex + 1}`}
             className="h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.04]"
@@ -131,9 +131,9 @@ export default function RoomBlock({ room, reverse, onOpenLightbox }: RoomBlockPr
 
         {room.images.length > 1 && (
           <div className="mt-3 flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {room.images.map((img, i) => (
+            {room.images.map((_img, i) => (
               <button
-                key={img}
+                key={i}
                 type="button"
                 onClick={() => setActiveIndex(i)}
                 aria-label={`Xem ảnh ${i + 1} của ${room.name}`}
@@ -167,7 +167,7 @@ export default function RoomBlock({ room, reverse, onOpenLightbox }: RoomBlockPr
                 }}
               >
                 <img
-                  src={cld(img, 'f_webp,q_auto,w_240')}
+                  src={room.thumbSrcs[i]}
                   alt=""
                   loading="lazy"
                   className="h-full w-full object-cover"

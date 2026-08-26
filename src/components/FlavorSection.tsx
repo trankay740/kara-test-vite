@@ -1,28 +1,21 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { cldTransform } from '@/lib/utils';
+import type { ImagetoolsImg } from '@/vite-env';
+import { flavorImages } from '@/lib/imageAssets';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const IMAGES = [
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787727549/foodndrinks_2.jpg',
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787727552/foodndrinks_1.jpg',
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787727548/foodndrinks_8.jpg',
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787727582/481219537_122179368746124045_3389339280910690230_n.jpg',
-  'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787727548/foodndrinks_5.jpg',
-];
+const IMAGES: ImagetoolsImg[] = flavorImages;
 
 function BentoImage({
-  src,
+  image,
   alt,
   className,
-  sizeHint,
 }: {
-  src: string;
+  image: ImagetoolsImg;
   alt: string;
   className: string;
-  sizeHint: string;
 }) {
   return (
     <div
@@ -30,7 +23,8 @@ function BentoImage({
       className={`card-glow-gold group relative overflow-hidden outline-none ${className}`}
     >
       <img
-        src={cldTransform(src, `f_webp,q_auto,${sizeHint}`)}
+        src={image.src}
+        srcSet={image.srcset}
         alt={alt}
         loading="lazy"
         className="h-full w-full object-cover transition-transform duration-[900ms] will-change-transform group-hover:scale-[1.05]"
@@ -166,18 +160,16 @@ export default function FlavorSection() {
         {/* Mobile: 1 ảnh to phía trên + lưới 2x2 phía dưới */}
         <div ref={mobileGridRef} className="grid grid-cols-2 gap-3 md:hidden">
           <BentoImage
-            src={IMAGES[0]}
+            image={IMAGES[0]}
             alt="Món ăn, trái cây, thức uống tại Karaoke 9999"
             className="col-span-2 aspect-[16/10]"
-            sizeHint="w_900"
           />
-          {IMAGES.slice(1).map((src) => (
+          {IMAGES.slice(1).map((image, i) => (
             <BentoImage
-              key={src}
-              src={src}
+              key={i}
+              image={image}
               alt="Món ăn, trái cây, thức uống tại Karaoke 9999"
               className="aspect-square"
-              sizeHint="w_500"
             />
           ))}
         </div>
@@ -188,18 +180,16 @@ export default function FlavorSection() {
           className="hidden gap-4 md:grid md:h-[560px] md:grid-cols-4 md:grid-rows-2 lg:h-[620px]"
         >
           <BentoImage
-            src={IMAGES[0]}
+            image={IMAGES[0]}
             alt="Món ăn, trái cây, thức uống tại Karaoke 9999"
             className="col-span-2 row-span-2"
-            sizeHint="w_1200"
           />
-          {IMAGES.slice(1).map((src) => (
+          {IMAGES.slice(1).map((image, i) => (
             <BentoImage
-              key={src}
-              src={src}
+              key={i}
+              image={image}
               alt="Món ăn, trái cây, thức uống tại Karaoke 9999"
               className="col-span-1 row-span-1"
-              sizeHint="w_700"
             />
           ))}
         </div>

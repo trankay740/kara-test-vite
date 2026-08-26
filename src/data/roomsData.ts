@@ -1,3 +1,6 @@
+import type { ImagetoolsImg } from '@/vite-env';
+import { roomImages, roomThumbs } from '@/lib/imageAssets';
+
 export type RoomGlow = 'gold' | 'violet' | 'magenta';
 
 export interface Room {
@@ -5,8 +8,8 @@ export interface Room {
   name: string;
   tagline: string;
   description: string;
-  images: string[];
-  /** Màu ambient glow + hover glow khớp đúng tông ánh sáng thật của phòng */
+  images: ImagetoolsImg[];
+  thumbSrcs: string[];
   glow: RoomGlow;
 }
 
@@ -20,11 +23,8 @@ export const rooms: Room[] = [
     tagline: 'Ấm Áp · Sang Trọng',
     description:
       'Tông ánh sáng ấm, không gian tinh tế - phù hợp cho những buổi gặp gỡ cần sự riêng tư, kín đáo.',
-    images: [
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726045/phong_11.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726042/phong_10.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726042/phong_9.jpg',
-    ],
+    images: roomImages['vip-1'],
+    thumbSrcs: roomThumbs['vip-1'],
     glow: 'gold',
   },
   {
@@ -33,11 +33,8 @@ export const rooms: Room[] = [
     tagline: 'Dịu Dàng · Thư Thái',
     description:
       'Ánh sáng êm dịu, không gian nhẹ nhàng - lựa chọn lý tưởng cho những cuộc trò chuyện thư giãn cùng bạn bè.',
-    images: [
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726039/phong_1.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726039/phong_2.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726040/phong_3.jpg',
-    ],
+    images: roomImages['vip-2'],
+    thumbSrcs: roomThumbs['vip-2'],
     glow: 'violet',
   },
   {
@@ -46,18 +43,8 @@ export const rooms: Room[] = [
     tagline: 'Sôi Động · Rực Rỡ',
     description:
       'Hệ đèn màu biến ảo theo nhịp nhạc - không gian lý tưởng cho tiệc sinh nhật, họp mặt đông vui.',
-    images: [
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726041/phong_6.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726045/phong_4.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726042/phong_5.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726040/phong_7.jpg',
-      'https://res.cloudinary.com/dcnf2dmf/image/upload/v1787726041/phong_8.jpg',
-    ],
+    images: roomImages['vip-3'],
+    thumbSrcs: roomThumbs['vip-3'],
     glow: 'magenta',
   },
 ];
-
-/** Chèn chuỗi transform Cloudinary (vd: 'f_webp,q_auto,w_1200') vào URL gốc */
-export function cld(url: string, transform: string): string {
-  return url.replace('/upload/', `/upload/${transform}/`);
-}

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import type { ImagetoolsImg } from '@/vite-env';
+import { experienceImages } from '@/lib/imageAssets';
 
 interface ExperienceCard {
   eyebrow: string;
   headline: string;
   description: string;
-  image: string;
+  image: ImagetoolsImg;
   alt: string;
 }
 
@@ -13,21 +15,21 @@ const CARDS: ExperienceCard[] = [
     eyebrow: 'Tiếp Đối Tác',
     headline: 'Đêm Kín Đáo',
     description: 'Không gian riêng tư cho những cuộc gặp quan trọng',
-    image: 'https://res.cloudinary.com/dcnf2dmf/image/upload/f_webp,q_auto,w_900/v1787719461/test_2.jpg',
+    image: experienceImages[0],
     alt: 'Không gian VIP tiếp đối tác tại Karaoke 9999',
   },
   {
     eyebrow: 'Cuối Tuần',
     headline: 'Hội Bạn Tụ Họp',
     description: 'Đồng nghiệp, hội nhóm, bạn bè - cùng nhau xả hơi cuối tuần',
-    image: 'https://res.cloudinary.com/dcnf2dmf/image/upload/f_webp,q_auto,w_900/v1787719463/test_5.jpg',
+    image: experienceImages[1],
     alt: 'Nhóm bạn bè, đồng nghiệp hát karaoke cuối tuần',
   },
   {
     eyebrow: 'Tiệc & Sự Kiện',
     headline: 'Bùng Nổ Đêm Tiệc',
     description: 'Sinh nhật, tất niên, tiệc công ty - nhảy nhót, ca hát thả ga',
-    image: 'https://res.cloudinary.com/dcnf2dmf/image/upload/f_webp,q_auto,w_900/v1787719462/test_3.jpg',
+    image: experienceImages[2],
     alt: 'Tiệc sinh nhật, sự kiện, party tại Karaoke 9999',
   },
 ];
@@ -125,8 +127,8 @@ function ExperienceCardItem({ card, index }: { card: ExperienceCard; index: numb
 
         <div className="relative w-full overflow-hidden" style={{ height: '74svh' }}>
           <img
-            src={card.image}
-            srcSet={`${card.image.replace('w_900', 'w_400')} 400w, ${card.image.replace('w_900', 'w_640')} 640w, ${card.image} 900w`}
+            src={card.image.src}
+            srcSet={card.image.srcset}
             sizes="100vw"
             alt={card.alt}
             loading="lazy"
@@ -151,8 +153,8 @@ function ExperienceCardItem({ card, index }: { card: ExperienceCard; index: numb
       {/* ── Desktop: ảnh full-bleed, hover zoom nhẹ, chữ đè đáy trên gradient tối ── */}
       <div className="relative hidden h-full w-full overflow-hidden md:block">
         <img
-          src={card.image}
-          srcSet={`${card.image.replace('w_900', 'w_400')} 400w, ${card.image.replace('w_900', 'w_640')} 640w, ${card.image} 900w`}
+          src={card.image.src}
+          srcSet={card.image.srcset}
           sizes="(max-width: 1023px) 100vw, 33vw"
           alt={card.alt}
           loading="lazy"
